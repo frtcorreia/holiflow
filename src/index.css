@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%; /* Branco */
+    --foreground: 0 0% 10%; /* Preto suave */
+
+    --card: 0 0% 97%; /* Cinza claro */
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 97%;
+    --popover-foreground: 0 0% 10%;
+
+    --primary: 262 80% 55%; /* Roxo vibrante (130, 52, 233) */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 5% 20%; /* Cinza escuro (41, 41, 46) */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 5% 85%; /* Cinza claro */
+    --muted-foreground: 240 5% 40%;
+
+    --accent: 262 70% 60%; /* Roxo médio */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 5% 50%; /* Cinza médio */
+    --input: 240 5% 50%;
+    --ring: 262 80% 55%; /* Roxo vibrante */
+
+    --radius: 0.5rem;
+
+    /* Cores para gráficos */
+    --chart-1: 262 80% 55%; /* Roxo */
+    --chart-2: 240 5% 20%; /* Cinza escuro */
+    --chart-3: 240 10% 30%; /* Cinza médio */
+    --chart-4: 262 60% 65%; /* Lilás */
+    --chart-5: 262 70% 50%; /* Roxo escuro */
+  }
+
+  .dark {
+    --background: 240 5% 10%; /* Preto com tom azulado */
+    --foreground: 0 0% 100%; /* Branco */
+
+    --card: 240 5% 15%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 240 5% 15%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 262 80% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 5% 25%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 5% 20%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 262 70% 65%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 5% 30%;
+    --input: 240 5% 30%;
+    --ring: 262 80% 60%;
+
+    /* Cores para gráficos no modo escuro */
+    --chart-1: 262 80% 60%;
+    --chart-2: 240 5% 25%;
+    --chart-3: 240 10% 35%;
+    --chart-4: 262 60% 70%;
+    --chart-5: 262 70% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
