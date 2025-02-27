@@ -216,7 +216,7 @@ const TeamManagement = () => {
                         id="teamName"
                         value={teamName}
                         onChange={(e) => setTeamName(e.target.value)}
-                        className="mt-1 block w-full rounded-md border shadow-sm focus:border-primary focus:ring-primary bg-background text-foreground text-sm"
+                        className="mt-1 p-2 block w-full rounded-md border shadow-sm focus:border-primary focus:ring-primary bg-background text-foreground text-sm"
                       />
                     </div>
                     <div className="flex justify-end space-x-3">
@@ -298,7 +298,7 @@ const TeamManagement = () => {
                     </div>
                   </form>
 
-                  <div className="space-y-4">
+                  <div className="space-y-4 mb-4">
                     {teamInvitations.length > 0 && (
                       <h3 className="text-lg font-medium text-foreground mb-4">
                         Membros convidados

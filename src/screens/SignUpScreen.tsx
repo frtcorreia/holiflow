@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Calendar } from "lucide-react";
+import { Calendar, EyeIcon, EyeOffIcon } from "lucide-react";
 import { useAuthStore } from "../store/authStore";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Role } from "../types";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { PasswordInput } from "@/components/PasswordInput";
 
 const AVAILABLE_COLORS = [
   "#3B82F6", // blue
@@ -23,6 +26,7 @@ const SignUpScreen = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [role, setRole] = useState<Role | undefined>(Role?.collaborator);
+  const [showPassword, setShowPassword] = useState(false);
   const { signUp, loading, error, user } = useAuthStore();
 
   const [searchParams] = useSearchParams();
@@ -80,14 +84,14 @@ const SignUpScreen = () => {
                   Nome
                 </label>
                 <div className="mt-1">
-                  <input
+                  <Input
                     id="firstName"
                     name="firstName"
                     type="text"
                     required
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                    className="bg-background"
                   />
                 </div>
               </div>
@@ -100,14 +104,14 @@ const SignUpScreen = () => {
                   Sobrenome
                 </label>
                 <div className="mt-1">
-                  <input
+                  <Input
                     id="lastName"
                     name="lastName"
                     type="text"
                     required
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                    className="bg-background"
                   />
                 </div>
               </div>
@@ -121,14 +125,14 @@ const SignUpScreen = () => {
                 Endereço de email
               </label>
               <div className="mt-1">
-                <input
+                <Input
                   id="email"
                   name="email"
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                  className="bg-background"
                 />
               </div>
             </div>
@@ -141,14 +145,10 @@ const SignUpScreen = () => {
                 Palavra-passe
               </label>
               <div className="mt-1">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
+                <PasswordInput
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                  onChange={(e) => setPassword(e)}
+                  className="bg-background"
                 />
               </div>
             </div>

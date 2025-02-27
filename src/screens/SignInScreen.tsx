@@ -3,6 +3,8 @@ import { Calendar } from "lucide-react";
 import { useAuthStore } from "../store/authStore";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/PasswordInput";
 
 const SignInScreen = () => {
   const navigate = useNavigate();
@@ -50,14 +52,14 @@ const SignInScreen = () => {
                 Endereço de email
               </label>
               <div className="mt-1">
-                <input
+                <Input
                   id="email"
                   name="email"
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                  className="bg-background"
                 />
               </div>
             </div>
@@ -70,14 +72,10 @@ const SignInScreen = () => {
                 Palavra-passe
               </label>
               <div className="mt-1">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
+                <PasswordInput
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                  onChange={(e) => setPassword(e)}
+                  className="bg-background"
                 />
               </div>
             </div>

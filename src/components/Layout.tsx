@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
 import Sidebar from "./Sidebar";
 import ThemeToggle from "./ThemeToggle";
-import NotificationsDropdown from "./NotificationsDropdown";
+import { NotificationMenu } from "./NotificationsMenu";
 
 interface Props {
   children: React.ReactNode;
@@ -46,7 +46,7 @@ const Layout = ({ children }: Props) => {
             </button>
 
             <div className="flex items-center space-x-4">
-              <NotificationsDropdown />
+              <NotificationMenu />
               <ThemeToggle />
               <div className="flex items-center space-x-2">
                 <div
