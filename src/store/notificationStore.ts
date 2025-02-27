@@ -60,12 +60,11 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
   },
 
   markAsRead: async (notificationId: string) => {
-    debugger;
     try {
       set({ loading: true, error: null });
-      // await updateDoc(doc(db, NOTIFICATIONS_COLLECTION, notificationId), {
-      //   read: true,
-      // });
+      await updateDoc(doc(db, NOTIFICATIONS_COLLECTION, notificationId), {
+        read: true,
+      });
     } catch (error: any) {
       set({ error: error.message });
       throw error;
@@ -96,10 +95,9 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
   },
 
   deleteNotification: async (notificationId: string) => {
-    debugger;
     try {
       set({ loading: true, error: null });
-      //await deleteDoc(doc(db, "notifications", notificationId));
+      await deleteDoc(doc(db, "notifications", notificationId));
     } catch (error: unknown) {
       const err = error as Error;
       set({ error: err.message });
