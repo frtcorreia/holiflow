@@ -139,10 +139,10 @@ const TeamManagement = () => {
     }
   };
 
-  const handleRemoveMember = async (memberId?: string | null) => {
+  const handleRemoveMember = async (email?: string | null) => {
     if (window.confirm("Tem certeza que deseja remover este membro?")) {
       try {
-        await removeMember(team!.id, memberId);
+        await removeMember(team!.id, email);
         toast.success("Membro removido com sucesso");
       } catch (error) {
         toast.error("Erro ao remover membro");
