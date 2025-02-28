@@ -6,6 +6,15 @@ import { useTeamStore } from "../store/teamStore";
 import toast from "react-hot-toast";
 import { Invitation, NotificationType, Role } from "../types";
 import { useNotificationStore } from "../store/notificationStore";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const TeamManagement = () => {
   const navigate = useNavigate();
@@ -130,7 +139,7 @@ const TeamManagement = () => {
     }
   };
 
-  const handleRemoveMember = async (memberId?: string) => {
+  const handleRemoveMember = async (memberId?: string | null) => {
     if (window.confirm("Tem certeza que deseja remover este membro?")) {
       try {
         await removeMember(team!.id, memberId);
@@ -337,6 +346,44 @@ const TeamManagement = () => {
                         </button>
                       </div>
                     ))}
+
+                    <Table>
+                      <TableCaption>
+                        A list of your recent invoices.
+                      </TableCaption>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="w-[100px]">Email</TableHead>
+                          <TableHead>Role</TableHead>
+                          <TableHead>Data</TableHead>
+                          <TableHead className="text-right">Status</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {teamInvitations.map((member) => (
+                          <TableRow>
+                            <TableCell className="font-medium">
+                              {member.email}
+                            </TableCell>
+                            <TableCell>{member.role}</TableCell>
+                            <TableCell>{member.joinedAt}</TableCell>
+                            <TableCell className="text-right">
+                              Pendente
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <button
+                                onClick={() =>
+                                  handleRemoveMember(member?.email)
+                                }
+                                className="text-muted-foreground hover:text-destructive"
+                              >
+                                <X className="h-5 w-5" />
+                              </button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
                   </div>
 
                   <div className="space-y-4">

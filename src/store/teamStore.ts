@@ -60,7 +60,7 @@ interface TeamState {
     userId?: string,
     role?: Role
   ) => Promise<void>;
-  removeMember: (teamId?: string, userId?: string) => Promise<void>;
+  removeMember: (teamId?: string, email?: string | null) => Promise<void>;
   fetchTeamByLeader: (leaderId?: string) => Promise<Team | null>;
   fetchTeamMembers: (teamId?: string) => Promise<User[]>;
   findUserByEmail: (email: string) => Promise<User | null>;
@@ -201,13 +201,11 @@ export const useTeamStore = create<TeamState>((set, get) => ({
     try {
       set({ loading: true, error: null });
 
-      // Verificar se já existe convite
       const existingInvitation = await get().findInvitation(team.id, email);
       if (existingInvitation) {
         throw new TeamError("O membro já tem um convite pendente");
       }
 
-      // Criar convite
       await addDoc(collection(db, COLLECTIONS.INVITATION_LIST), {
         teamId: team.id,
         userId,
@@ -238,19 +236,19 @@ export const useTeamStore = create<TeamState>((set, get) => ({
     }
   },
 
-  removeMember: async (teamId, userId) => {
+  removeMember: async (teamId, email) => {
     try {
       set({ loading: true, error: null });
       const memberQuery = query(
         collection(db, "team_members"),
         where("teamId", "==", teamId),
-        where("userId", "==", userId)
+        where("email", "==", email)
       );
       const memberSnapshot = await getDocs(memberQuery);
-      if (!memberSnapshot.empty && userId) {
+      if (!memberSnapshot.empty && email) {
         await deleteDoc(memberSnapshot.docs[0].ref);
 
-        await updateDoc(doc(db, "users", userId), {
+        await updateDoc(doc(db, "users", email), {
           teamId: null,
         });
       }
