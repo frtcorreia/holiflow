@@ -10,7 +10,7 @@ const LandingPage = () => {
     {
       title: "Gestão Simplificada",
       description:
-        "Gerencie férias e ausências da sua equipe de forma intuitiva e eficiente.",
+        "Gerencie férias e ausências da sua equipa de forma intuitiva e eficiente.",
       icon: Calendar,
     },
     {
@@ -22,7 +22,7 @@ const LandingPage = () => {
     {
       title: "Conformidade Legal",
       description:
-        "Sistema atualizado com feriados nacionais e gestão de feriados locais.",
+        "Garantia de cumprimento das normas laborais com gestão integrada de feriados.",
       icon: CheckCircle,
     },
   ];
@@ -63,12 +63,12 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
             <h1 className="text-4xl tracking-tight font-extrabold text-foreground sm:text-5xl md:text-6xl">
-              <span className="block">Simplifique a Gestão</span>
-              <span className="block text-accent">de Férias da sua Equipe</span>
+              <span className="block">Simplifique a gestão</span>
+              <span className="block text-accent">de férias da sua equipa</span>
             </h1>
             <p className="mt-3 max-w-md mx-auto text-base text-muted-foreground sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-              Gerencie férias e ausências de forma eficiente, mantenha a sua
-              equipa organizada e garanta conformidade legal.
+              Gerencie férias e ausências com eficiência e mantenha a sua equipa
+              sempre organizada.
             </p>
             <div className="mt-10 flex justify-center">
               <div className="rounded-md shadow">
@@ -101,7 +101,7 @@ const LandingPage = () => {
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {features.map((feature, index) => (
                 <div key={index} className="relative">
-                  <div className="h-full rounded-2xl border bg-card p-6 shadow-sm hover:shadow-lg transition-shadow">
+                  <div className="h-full rounded-2xl border bg-background dark:bg-foreground/[0.05] p-6 shadow-sm hover:shadow-lg transition-shadow">
                     <div>
                       <feature.icon className="h-8 w-8 text-accent" />
                       <h3 className="mt-4 text-lg font-medium text-foreground">
@@ -132,7 +132,7 @@ const LandingPage = () => {
             <div className="inline-flex rounded-md shadow">
               <button
                 onClick={() => navigate("/auth/signup")}
-                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-accent bg-background hover:bg-background/90 transition-colors"
+                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-accent bg-background hover:bg-accent-foreground transition-colors"
               >
                 Começar Agora
                 <ArrowRight className="ml-2 h-5 w-5" />

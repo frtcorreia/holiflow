@@ -59,8 +59,8 @@ const VacationCalendar = ({
   };
 
   return (
-    <div className="bg-background rounded-lg shadow-lg">
-      <div className="flex items-center justify-between p-6 border-b border border-muted">
+    <div className="bg-background dark:bg-foreground/[0.05] rounded-lg shadow-lg border">
+      <div className="flex items-center justify-between p-6 border-b border  ">
         <h2 className="text-xl font-semibold text-foreground">
           {format(currentMonth, "MMMM yyyy", { locale: pt })}
         </h2>

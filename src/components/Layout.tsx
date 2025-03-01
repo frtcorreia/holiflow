@@ -28,7 +28,7 @@ const Layout = ({ children }: Props) => {
   };
 
   return (
-    <div className="min-h-screen bg-background dark:bg-slate-950 transition-colors">
+    <div className="min-h-screen bg-background dark:bg-background transition-colors">
       <Sidebar isCollapsed={isCollapsed} />
 
       <div
@@ -36,7 +36,7 @@ const Layout = ({ children }: Props) => {
           isCollapsed ? "pl-16" : "pl-64"
         }`}
       >
-        <header className="bg-muted dark:bg-slate-900 shadow-sm dark:shadow-slate-900/50 transition-colors">
+        <header className="bg-background dark:bg-background border shadow-sm dark:shadow-slate-900/50 transition-colors">
           <div className="h-16 px-4 flex items-center justify-between">
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}

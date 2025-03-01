@@ -42,7 +42,7 @@ const SignInScreen = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-background py-8 px-4 shadow-md rounded-lg sm:px-10 border">
+        <div className="bg-background dark:bg-foreground/[0.05] py-8 px-4 shadow-md rounded-lg sm:px-10 border">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
@@ -104,7 +104,7 @@ const SignInScreen = () => {
                 <div className="w-full border" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-background text-muted-foreground">
+                <span className="px-2  bg-background text-muted-foreground">
                   Ou
                 </span>
               </div>

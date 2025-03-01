@@ -74,7 +74,7 @@ const MyAbsences = () => {
           <div className="mt-4 sm:mt-0">
             <button
               onClick={() => navigate("/absences/new")}
-              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600"
+              className="inline-flex items-center px-4 py-2 border-0 rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90"
             >
               <Plus className="h-4 w-4 mr-2" />
               Nova Ausência
@@ -83,7 +83,7 @@ const MyAbsences = () => {
         </div>
 
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <div className="bg-white dark:bg-slate-900 shadow dark:shadow-slate-900/50 rounded-lg p-4">
+          <div className="bg-background dark:bg-foreground/[0.05] shadow-md rounded-lg p-4 border">
             <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
               Dias de Férias
             </h3>
@@ -100,7 +100,7 @@ const MyAbsences = () => {
             </p>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 shadow dark:shadow-slate-900/50 rounded-lg p-4">
+          <div className="bg-background dark:bg-foreground/[0.05] shadow-md rounded-lg p-4 border">
             <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
               Feriado Local
             </h3>
@@ -120,7 +120,7 @@ const MyAbsences = () => {
           </div>
         </div>
 
-        <div className="mt-8 bg-white dark:bg-slate-900 shadow dark:shadow-slate-900/50 rounded-lg">
+        <div className="mt-8 bg-background dark:bg-foreground/[0.05] shadow-md rounded-lg border">
           <div className="px-4 py-5 sm:p-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
               Histórico de Ausências

@@ -73,7 +73,7 @@ const SignUpScreen = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-background py-8 px-4 shadow-md rounded-lg sm:px-10 border">
+        <div className="bg-background dark:bg-foreground/[0.05] py-8 px-4 shadow-md rounded-lg sm:px-10 border">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -166,7 +166,7 @@ const SignUpScreen = () => {
                   name="role"
                   value={role}
                   onChange={(e) => setRole(e.target.value as Role)}
-                  className="appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                  className="appearance-none bg-background block w-full px-3 py-2 border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 >
                   <option value={Role.collaborator}>Colaborador</option>
                   <option value={Role.teamLeader}>Team Leader</option>
@@ -203,7 +203,7 @@ const SignUpScreen = () => {
                 <div className="w-full border" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-background text-muted-foreground">
+                <span className="px-2 bg-background  text-muted-foreground">
                   Ou
                 </span>
               </div>

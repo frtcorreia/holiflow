@@ -59,13 +59,13 @@ const TeamVacations = () => {
       </h1>
 
       {pendingVacations.length === 0 ? (
-        <div className="grid gap-4 bg-background shadow-md rounded-lg p-4 border border-muted">
+        <div className="grid gap-4 bg-background dark:bg-foreground/[0.05] shadow-md rounded-lg p-4 border">
           <p className="text-muted-foreground">
             Não há pedidos de férias pendentes.
           </p>
         </div>
       ) : (
-        <div className="grid gap-4 bg-background shadow-md rounded-lg border border-muted">
+        <div className="grid gap-4 bg-background dark:bg-foreground/[0.05] shadow-md rounded-lg border">
           {pendingVacations.map((vacation, i) => (
             <div
               key={i}

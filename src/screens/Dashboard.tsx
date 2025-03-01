@@ -30,7 +30,7 @@ function Dashboard() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="bg-background overflow-hidden shadow-md rounded-lg border-muted border">
+        <div className="bg-background dark:bg-foreground/[0.05] overflow-hidden shadow-md rounded-lg  border">
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
@@ -50,7 +50,7 @@ function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-background overflow-hidden shadow-md rounded-lg border border-muted">
+        <div className="bg-background dark:bg-foreground/[0.05] overflow-hidden shadow-md rounded-lg border">
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">

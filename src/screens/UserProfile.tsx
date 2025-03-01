@@ -41,7 +41,7 @@ const UserProfile = () => {
 
   return (
     <div className="max-w-2xl mx-auto py-6 sm:px-6 lg:px-8">
-      <div className="bg-background shadow-md rounded-lg border border-muted">
+      <div className="bg-background dark:bg-foreground/[0.05] shadow-md rounded-lg border ">
         <div className="px-4 py-5 sm:p-6">
           <div className="flex items-center space-x-3 mb-6">
             <Settings className="h-6 w-6 text-muted-foreground" />

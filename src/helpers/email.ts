@@ -45,7 +45,7 @@ export const sendEmailRegisterInvitation = async (
   email: string,
   role?: Role
 ) => {
-  const customUrl = `https://holiflow.pt/auth/signup?teamId=${team?.id}`;
+  const customUrl = `https://holiflow.pt/auth/signup`;
   const templateParams = {
     to_email: email,
     url: customUrl,

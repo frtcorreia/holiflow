@@ -184,7 +184,7 @@ const TeamManagement = () => {
           Voltar
         </button>
 
-        <div className="bg-background rounded-lg shadow-md border border-muted">
+        <div className="bg-background dark:bg-foreground/[0.05]  rounded-lg shadow-md border">
           <div className="px-4 py-5 sm:p-6">
             <h2 className="text-lg font-medium text-foreground mb-4">
               Gerir Equipa
@@ -307,56 +307,21 @@ const TeamManagement = () => {
                     </div>
                   </form>
 
-                  <div className="space-y-4 mb-4">
+                  <div className="space-y-4 mb-4 bg-foreground/5 dark:bg-foreground/5 rounded-lg p-4">
                     {teamInvitations.length > 0 && (
                       <h3 className="text-lg font-medium text-foreground mb-4">
                         Membros convidados
                       </h3>
                     )}
 
-                    {teamInvitations.map((member) => (
-                      <div
-                        key={member.email}
-                        className="flex items-center justify-between p-4 bg-muted rounded-lg"
-                      >
-                        <div className="flex items-center">
-                          <div className="ml-3">
-                            <p className="text-sm font-medium text-foreground">
-                              {member.email}
-                            </p>
-                            <p className="text-sm font-medium text-foreground">
-                              {member.role}
-                            </p>
-                            <p className="text-sm font-medium text-foreground">
-                              {member.joinedAt}
-                            </p>
-                            <p className="text-sm text-muted-foreground">
-                              Pendente
-                            </p>
-                          </div>
-                        </div>
-
-                        <button
-                          onClick={() =>
-                            handleRemoveInvitation(member.email || "")
-                          }
-                          className="text-muted-foreground hover:text-destructive"
-                        >
-                          <X className="h-5 w-5" />
-                        </button>
-                      </div>
-                    ))}
-
                     <Table>
-                      <TableCaption>
-                        A list of your recent invoices.
-                      </TableCaption>
                       <TableHeader>
                         <TableRow>
                           <TableHead className="w-[100px]">Email</TableHead>
                           <TableHead>Role</TableHead>
                           <TableHead>Data</TableHead>
                           <TableHead className="text-right">Status</TableHead>
+                          <TableHead className="text-right">#</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -386,45 +351,56 @@ const TeamManagement = () => {
                     </Table>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="space-y-4 bg-foreground/5 dark:bg-foreground/5 rounded-lg p-4">
                     {members.length > 0 && (
                       <h3 className="text-lg font-medium text-foreground mb-4">
                         Equipa
                       </h3>
                     )}
 
-                    {members.map((member) => (
-                      <div
-                        key={member.id}
-                        className="flex items-center justify-between p-4 bg-muted rounded-lg"
-                      >
-                        <div className="flex items-center">
-                          <div
-                            className="h-10 w-10 rounded-full flex items-center justify-center text-primary-foreground text-sm font-medium"
-                            style={{ backgroundColor: member.color }}
-                          >
-                            {member?.firstName?.charAt(0)}
-                            {member?.lastName?.charAt(0)}
-                          </div>
-                          <div className="ml-3">
-                            <p className="text-sm font-medium text-foreground">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>#</TableHead>
+                          <TableHead>Nome</TableHead>
+                          <TableHead>Role</TableHead>
+                          <TableHead>Email</TableHead>
+                          <TableHead className="text-right">#</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {members?.map((member) => (
+                          <TableRow>
+                            <TableCell className="font-medium">
+                              <div
+                                className="h-10 w-10 rounded-full flex items-center justify-center text-primary-foreground text-sm font-medium"
+                                style={{ backgroundColor: member.color }}
+                              >
+                                {member?.firstName?.charAt(0)}
+                                {member?.lastName?.charAt(0)}
+                              </div>
+                            </TableCell>
+                            <TableCell>
                               {member.firstName} {member.lastName}
-                            </p>
-                            <p className="text-sm text-muted-foreground">
-                              {member.email}
-                            </p>
-                          </div>
-                        </div>
-                        {member.id !== user?.id && (
-                          <button
-                            onClick={() => handleRemoveMember(member?.id)}
-                            className="text-muted-foreground hover:text-destructive"
-                          >
-                            <X className="h-5 w-5" />
-                          </button>
-                        )}
-                      </div>
-                    ))}
+                            </TableCell>
+                            <TableCell>{member.role}</TableCell>
+                            <TableCell>{member.email}</TableCell>
+                            <TableCell className="text-right">
+                              {member.id !== user?.id && (
+                                <button
+                                  onClick={() =>
+                                    handleRemoveMember(member?.email)
+                                  }
+                                  className="text-muted-foreground hover:text-destructive"
+                                >
+                                  <X className="h-5 w-5" />
+                                </button>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
                   </div>
                 </div>
               </div>

@@ -28,7 +28,7 @@
     --destructive: 0 85% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 5% 50%; /* Cinza médio */
+    --border: 262 70% 60%; /* Cinza médio */
     --input: 240 5% 50%;
     --ring: 262 80% 55%; /* Roxo vibrante */
 
@@ -40,10 +40,15 @@
     --chart-3: 240 10% 30%; /* Cinza médio */
     --chart-4: 262 60% 65%; /* Lilás */
     --chart-5: 262 70% 50%; /* Roxo escuro */
+
+    --sidebar: 262 80% 60%;
+    --navbar: 262 80% 60%;
+    --content: 262 80% 60%;
+    --btn: 232, 100%, 64%
   }
 
   .dark {
-    --background: 240 5% 10%; /* Preto com tom azulado */
+    --background: 220,42.86%,10.98%; /* Preto com tom azulado */
     --foreground: 0 0% 100%; /* Branco */
 
     --card: 240 5% 15%;
@@ -67,7 +72,7 @@
     --destructive: 0 65% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 5% 30%;
+    --border: 214, 33%, 17%;
     --input: 240 5% 30%;
     --ring: 262 80% 60%;
 
@@ -77,6 +82,11 @@
     --chart-3: 240 10% 35%;
     --chart-4: 262 60% 70%;
     --chart-5: 262 70% 55%;
+
+    --sidebar: 240 5% 10%;
+    --navbar: 240 5% 15%;
+    --content: 240 5% 15%;
+    --btn: 232, 100%, 64%
   }
 }
 

@@ -111,7 +111,7 @@ const MyTeam = () => {
           {myInvitations?.map((invitation, i) => (
             <div
               key={i}
-              className="bg-background shadow-md rounded-lg overflow-hidden border"
+              className="bg-background dark:bg-foreground/[0.05] shadow-md rounded-lg overflow-hidden border"
             >
               <div className="flex justify-between p-6">
                 <div className="flex items-center">
@@ -174,7 +174,7 @@ const MyTeam = () => {
               return (
                 <div
                   key={member.id}
-                  className="bg-background shadow-md rounded-lg overflow-hidden border"
+                  className="bg-background dark:bg-foreground/[0.05] shadow-md rounded-lg overflow-hidden border"
                 >
                   <div className="p-6">
                     <div className="flex items-center">

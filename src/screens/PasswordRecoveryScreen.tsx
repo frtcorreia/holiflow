@@ -40,7 +40,7 @@ const PasswordRecoveryScreen = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-background py-8 px-4 shadow-md rounded-lg sm:px-10 border">
+        <div className="bg-background dark:bg-foreground/[0.05] py-8 px-4 shadow-md rounded-lg sm:px-10 border">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
