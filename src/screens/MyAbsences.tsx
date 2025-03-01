@@ -7,10 +7,12 @@ import { pt } from "date-fns/locale/pt";
 import { AbsenceType, VacationsStatus } from "../types";
 
 import { getStatusColor, getStatusText } from "../helpers/vacations";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 const MyAbsences = () => {
   const navigate = useNavigate();
-  const { vacations, deleteVacation, fetchVacations } = useVacationStore();
+  const { loading, vacations, deleteVacation, fetchVacations } =
+    useVacationStore();
 
   useEffect(() => {
     fetchVacations();
@@ -120,59 +122,63 @@ const MyAbsences = () => {
           </div>
         </div>
 
-        <div className="mt-8 bg-background dark:bg-foreground/[0.05] shadow-md rounded-lg border">
-          <div className="px-4 py-5 sm:p-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
-              Histórico de Ausências
-            </h3>
-            <div className="mt-4 divide-y divide-gray-200 dark:divide-slate-700">
-              {vacations?.map((vacation) => (
-                <div key={vacation.id} className="py-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">
-                        {getAbsenceTypeLabel(vacation.type)}
-                      </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {format(new Date(vacation.startDate || ""), "PP", {
-                          locale: pt,
-                        })}
-                        -
-                        {format(new Date(vacation.endDate || ""), "PP", {
-                          locale: pt,
-                        })}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <span
-                        className={`px-2 py-1 text-sm rounded-full ${getStatusColor(
-                          vacation.status
-                        )}`}
-                      >
-                        {getStatusText(vacation.status)}
-                      </span>
-                      <button
-                        onClick={() => handleDelete(vacation.id)}
-                        className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
-                      >
-                        {vacation.status === VacationsStatus.rejected &&
-                          "Apagar"}
+        {loading && <LoadingSpinner />}
 
-                        {vacation.status === VacationsStatus.approved &&
-                          "Cancelar"}
-                      </button>
+        {!loading && (
+          <div className="mt-8 bg-background dark:bg-foreground/[0.05] shadow-md rounded-lg border">
+            <div className="px-4 py-5 sm:p-6">
+              <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
+                Histórico de Ausências
+              </h3>
+              <div className="mt-4 divide-y divide-gray-200 dark:divide-slate-700">
+                {vacations?.map((vacation) => (
+                  <div key={vacation.id} className="py-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-gray-900 dark:text-white">
+                          {getAbsenceTypeLabel(vacation.type)}
+                        </p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          {format(new Date(vacation.startDate || ""), "PP", {
+                            locale: pt,
+                          })}
+                          -
+                          {format(new Date(vacation.endDate || ""), "PP", {
+                            locale: pt,
+                          })}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <span
+                          className={`px-2 py-1 text-sm rounded-full ${getStatusColor(
+                            vacation.status
+                          )}`}
+                        >
+                          {getStatusText(vacation.status)}
+                        </span>
+                        <button
+                          onClick={() => handleDelete(vacation.id)}
+                          className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
+                        >
+                          {vacation.status === VacationsStatus.rejected &&
+                            "Apagar"}
+
+                          {vacation.status === VacationsStatus.approved &&
+                            "Cancelar"}
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-              {vacations.length === 0 && (
-                <p className="py-4 text-gray-500 dark:text-gray-400 text-center">
-                  Nenhuma ausência registrada
-                </p>
-              )}
+                ))}
+                {vacations.length === 0 && (
+                  <p className="py-4 text-gray-500 dark:text-gray-400 text-center">
+                    Nenhuma ausência registrada
+                  </p>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

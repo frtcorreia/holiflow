@@ -1,8 +1,16 @@
 import React from "react";
-import { LayoutDashboard, Calendar, User, Users, UserCog } from "lucide-react";
+import {
+  LayoutDashboard,
+  Calendar,
+  User,
+  Users,
+  UserCog,
+  Activity,
+} from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
 import { MenuLink } from "./MenuLink";
+import { Role } from "../types";
 
 interface Props {
   isCollapsed: boolean;
@@ -13,6 +21,9 @@ const Sidebar = ({ isCollapsed }: Props) => {
   const { user } = useAuthStore();
 
   const isActive = (path: string) => location.pathname === path;
+
+  const isAdmin = user?.role === "admin";
+  const isTeamLeader = user?.role === "team_leader";
 
   return (
     <div
@@ -56,7 +67,7 @@ const Sidebar = ({ isCollapsed }: Props) => {
           path="/team"
         />
 
-        {user?.role === "team_leader" && (
+        {isTeamLeader && (
           <>
             <MenuLink
               isActive={isActive}
@@ -74,6 +85,16 @@ const Sidebar = ({ isCollapsed }: Props) => {
               path="/team/vacations"
             />
           </>
+        )}
+
+        {isAdmin && (
+          <MenuLink
+            isActive={isActive}
+            isCollapsed={isCollapsed}
+            icon={<Activity className="h-5 w-5 flex-shrink-0" />}
+            name="Logs de Acesso"
+            path="/admin/logs"
+          />
         )}
 
         <MenuLink

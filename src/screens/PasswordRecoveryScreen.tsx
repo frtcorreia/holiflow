@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Calendar, ArrowLeft } from "lucide-react";
-import { useAuthStore } from "../store/authStore";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useAuthStore } from "@/store/authStore";
 
 const PasswordRecoveryScreen = () => {
   const navigate = useNavigate();

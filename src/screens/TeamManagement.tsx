@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ArrowLeft, Plus, X, Users } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "../store/authStore";
-import { useTeamStore } from "../store/teamStore";
 import toast from "react-hot-toast";
-import { Invitation, NotificationType, Role } from "../types";
-import { useNotificationStore } from "../store/notificationStore";
+import { useNavigate } from "react-router-dom";
+
 import {
   Table,
   TableBody,
@@ -15,11 +12,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { useAuthStore } from "@/store/authStore";
+import { Invitation, NotificationType, Role } from "@/types";
+import { useTeamStore } from "@/store/teamStore";
+import { useNotificationStore } from "@/store/notificationStore";
 
 const TeamManagement = () => {
   const navigate = useNavigate();
   const { user } = useAuthStore();
   const {
+    loading,
     team,
     members,
     invitations,
@@ -190,220 +193,233 @@ const TeamManagement = () => {
               Gerir Equipa
             </h2>
 
-            {!team ? (
-              <div>
-                {!isCreating ? (
-                  <div className="text-center py-12">
-                    <Users className="mx-auto h-12 w-12 text-muted-foreground" />
-                    <h3 className="mt-2 text-sm font-medium text-foreground">
-                      Sem equipa
-                    </h3>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      Comece criando uma nova equipa
-                    </p>
-                    <div className="mt-6">
-                      <button
-                        onClick={() => setIsCreating(true)}
-                        className="inline-flex items-center px-4 py-2 border-0 rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90"
-                      >
-                        <Plus className="h-4 w-4 mr-2" />
-                        Criar Equipa
-                      </button>
-                    </div>
+            {loading && <LoadingSpinner />}
+
+            {!loading && (
+              <>
+                {!team ? (
+                  <div>
+                    {!isCreating ? (
+                      <div className="text-center py-12">
+                        <Users className="mx-auto h-12 w-12 text-muted-foreground" />
+                        <h3 className="mt-2 text-sm font-medium text-foreground">
+                          Sem equipa
+                        </h3>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          Comece criando uma nova equipa
+                        </p>
+                        <div className="mt-6">
+                          <button
+                            onClick={() => setIsCreating(true)}
+                            className="inline-flex items-center px-4 py-2 border-0 rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90"
+                          >
+                            <Plus className="h-4 w-4 mr-2" />
+                            Criar Equipa
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <form onSubmit={handleCreateTeam} className="space-y-4">
+                        <div>
+                          <label
+                            htmlFor="teamName"
+                            className="block text-sm font-medium text-foreground"
+                          >
+                            Nome da Equipa
+                          </label>
+                          <input
+                            type="text"
+                            id="teamName"
+                            value={teamName}
+                            onChange={(e) => setTeamName(e.target.value)}
+                            className="mt-1 p-2 block w-full rounded-md border shadow-sm focus:border-primary focus:ring-primary bg-background text-foreground text-sm"
+                          />
+                        </div>
+                        <div className="flex justify-end space-x-3">
+                          <button
+                            type="button"
+                            onClick={() => setIsCreating(false)}
+                            className="px-4 py-2 border rounded-md shadow-sm text-sm font-medium text-foreground bg-background hover:bg-accent/10"
+                          >
+                            Cancelar
+                          </button>
+                          <button
+                            type="submit"
+                            className="px-4 py-2 border-0 rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90"
+                          >
+                            Criar
+                          </button>
+                        </div>
+                      </form>
+                    )}
                   </div>
                 ) : (
-                  <form onSubmit={handleCreateTeam} className="space-y-4">
-                    <div>
-                      <label
-                        htmlFor="teamName"
-                        className="block text-sm font-medium text-foreground"
-                      >
-                        Nome da Equipa
-                      </label>
-                      <input
-                        type="text"
-                        id="teamName"
-                        value={teamName}
-                        onChange={(e) => setTeamName(e.target.value)}
-                        className="mt-1 p-2 block w-full rounded-md border shadow-sm focus:border-primary focus:ring-primary bg-background text-foreground text-sm"
-                      />
-                    </div>
-                    <div className="flex justify-end space-x-3">
-                      <button
-                        type="button"
-                        onClick={() => setIsCreating(false)}
-                        className="px-4 py-2 border rounded-md shadow-sm text-sm font-medium text-foreground bg-background hover:bg-accent/10"
-                      >
-                        Cancelar
-                      </button>
-                      <button
-                        type="submit"
-                        className="px-4 py-2 border-0 rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90"
-                      >
-                        Criar
-                      </button>
-                    </div>
-                  </form>
-                )}
-              </div>
-            ) : (
-              <div className="space-y-6">
-                <form onSubmit={handleUpdateTeam} className="space-y-4">
-                  <div>
-                    <label
-                      htmlFor="teamName"
-                      className="block text-sm font-medium text-foreground"
-                    >
-                      Nome da Equipa
-                    </label>
-                    <div className="mt-1 flex rounded-md shadow-sm">
-                      <input
-                        type="text"
-                        id="teamName"
-                        value={teamName}
-                        onChange={(e) => setTeamName(e.target.value)}
-                        className="flex-1 p-2 rounded-md border shadow-sm focus:border-primary focus:ring-primary bg-background text-foreground text-sm"
-                      />
-                      <button
-                        type="submit"
-                        className="ml-3 inline-flex items-center px-4 py-2 border-0 rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90"
-                      >
-                        Atualizar
-                      </button>
-                    </div>
-                  </div>
-                </form>
-
-                <div className="border-t pt-6">
-                  <h3 className="text-lg font-medium text-foreground mb-4">
-                    Membros da Equipa
-                  </h3>
-
-                  <form onSubmit={handleAddMember} className="space-y-4 mb-6">
-                    <div>
-                      <label
-                        htmlFor="newMemberEmail"
-                        className="block text-sm font-medium text-foreground"
-                      >
-                        Adicionar Membro
-                      </label>
-                      <div className="mt-1 flex rounded-md shadow-sm">
-                        <input
-                          type="email"
-                          id="newMemberEmail"
-                          placeholder="Email do colaborador"
-                          value={newMemberEmail}
-                          onChange={(e) => setNewMemberEmail(e.target.value)}
-                          className="flex-1 p-2 rounded-md border shadow-sm focus:border-primary focus:ring-primary bg-background text-foreground text-sm"
-                        />
-                        <button
-                          type="submit"
-                          className="ml-3 inline-flex items-center px-4 py-2 border-0 rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90"
+                  <div className="space-y-6">
+                    <form onSubmit={handleUpdateTeam} className="space-y-4">
+                      <div>
+                        <label
+                          htmlFor="teamName"
+                          className="block text-sm font-medium text-foreground"
                         >
-                          <Plus className="h-4 w-4 mr-2" />
-                          Adicionar
-                        </button>
+                          Nome da Equipa
+                        </label>
+                        <div className="mt-1 flex rounded-md shadow-sm">
+                          <input
+                            type="text"
+                            id="teamName"
+                            value={teamName}
+                            onChange={(e) => setTeamName(e.target.value)}
+                            className="flex-1 p-2 rounded-md border shadow-sm focus:border-primary focus:ring-primary bg-background text-foreground text-sm"
+                          />
+                          <button
+                            type="submit"
+                            className="ml-3 inline-flex items-center px-4 py-2 border-0 rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90"
+                          >
+                            Atualizar
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+
+                    <div className="border-t pt-6">
+                      <h3 className="text-lg font-medium text-foreground mb-4">
+                        Membros da Equipa
+                      </h3>
+
+                      <form
+                        onSubmit={handleAddMember}
+                        className="space-y-4 mb-6"
+                      >
+                        <div>
+                          <label
+                            htmlFor="newMemberEmail"
+                            className="block text-sm font-medium text-foreground"
+                          >
+                            Adicionar Membro
+                          </label>
+                          <div className="mt-1 flex rounded-md shadow-sm">
+                            <input
+                              type="email"
+                              id="newMemberEmail"
+                              placeholder="Email do colaborador"
+                              value={newMemberEmail}
+                              onChange={(e) =>
+                                setNewMemberEmail(e.target.value)
+                              }
+                              className="flex-1 p-2 rounded-md border shadow-sm focus:border-primary focus:ring-primary bg-background text-foreground text-sm"
+                            />
+                            <button
+                              type="submit"
+                              className="ml-3 inline-flex items-center px-4 py-2 border-0 rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90"
+                            >
+                              <Plus className="h-4 w-4 mr-2" />
+                              Adicionar
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+
+                      <div className="space-y-4 mb-4 bg-foreground/5 dark:bg-foreground/5 rounded-lg p-4">
+                        {teamInvitations.length > 0 && (
+                          <h3 className="text-lg font-medium text-foreground mb-4">
+                            Membros convidados
+                          </h3>
+                        )}
+
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead className="w-[100px]">Email</TableHead>
+                              <TableHead>Role</TableHead>
+                              <TableHead>Data</TableHead>
+                              <TableHead className="text-right">
+                                Status
+                              </TableHead>
+                              <TableHead className="text-right">#</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {teamInvitations.map((member) => (
+                              <TableRow>
+                                <TableCell className="font-medium">
+                                  {member.email}
+                                </TableCell>
+                                <TableCell>{member.role}</TableCell>
+                                <TableCell>{member.joinedAt}</TableCell>
+                                <TableCell className="text-right">
+                                  Pendente
+                                </TableCell>
+                                <TableCell className="text-right">
+                                  <button
+                                    onClick={() =>
+                                      handleRemoveMember(member?.email)
+                                    }
+                                    className="text-muted-foreground hover:text-destructive"
+                                  >
+                                    <X className="h-5 w-5" />
+                                  </button>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </div>
+
+                      <div className="space-y-4 bg-foreground/5 dark:bg-foreground/5 rounded-lg p-4">
+                        {members.length > 0 && (
+                          <h3 className="text-lg font-medium text-foreground mb-4">
+                            Equipa
+                          </h3>
+                        )}
+
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead>#</TableHead>
+                              <TableHead>Nome</TableHead>
+                              <TableHead>Role</TableHead>
+                              <TableHead>Email</TableHead>
+                              <TableHead className="text-right">#</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {members?.map((member) => (
+                              <TableRow>
+                                <TableCell className="font-medium">
+                                  <div
+                                    className="h-10 w-10 rounded-full flex items-center justify-center text-primary-foreground text-sm font-medium"
+                                    style={{ backgroundColor: member.color }}
+                                  >
+                                    {member?.firstName?.charAt(0)}
+                                    {member?.lastName?.charAt(0)}
+                                  </div>
+                                </TableCell>
+                                <TableCell>
+                                  {member.firstName} {member.lastName}
+                                </TableCell>
+                                <TableCell>{member.role}</TableCell>
+                                <TableCell>{member.email}</TableCell>
+                                <TableCell className="text-right">
+                                  {member.id !== user?.id && (
+                                    <button
+                                      onClick={() =>
+                                        handleRemoveMember(member?.email)
+                                      }
+                                      className="text-muted-foreground hover:text-destructive"
+                                    >
+                                      <X className="h-5 w-5" />
+                                    </button>
+                                  )}
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
                       </div>
                     </div>
-                  </form>
-
-                  <div className="space-y-4 mb-4 bg-foreground/5 dark:bg-foreground/5 rounded-lg p-4">
-                    {teamInvitations.length > 0 && (
-                      <h3 className="text-lg font-medium text-foreground mb-4">
-                        Membros convidados
-                      </h3>
-                    )}
-
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead className="w-[100px]">Email</TableHead>
-                          <TableHead>Role</TableHead>
-                          <TableHead>Data</TableHead>
-                          <TableHead className="text-right">Status</TableHead>
-                          <TableHead className="text-right">#</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {teamInvitations.map((member) => (
-                          <TableRow>
-                            <TableCell className="font-medium">
-                              {member.email}
-                            </TableCell>
-                            <TableCell>{member.role}</TableCell>
-                            <TableCell>{member.joinedAt}</TableCell>
-                            <TableCell className="text-right">
-                              Pendente
-                            </TableCell>
-                            <TableCell className="text-right">
-                              <button
-                                onClick={() =>
-                                  handleRemoveMember(member?.email)
-                                }
-                                className="text-muted-foreground hover:text-destructive"
-                              >
-                                <X className="h-5 w-5" />
-                              </button>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
                   </div>
-
-                  <div className="space-y-4 bg-foreground/5 dark:bg-foreground/5 rounded-lg p-4">
-                    {members.length > 0 && (
-                      <h3 className="text-lg font-medium text-foreground mb-4">
-                        Equipa
-                      </h3>
-                    )}
-
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>#</TableHead>
-                          <TableHead>Nome</TableHead>
-                          <TableHead>Role</TableHead>
-                          <TableHead>Email</TableHead>
-                          <TableHead className="text-right">#</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {members?.map((member) => (
-                          <TableRow>
-                            <TableCell className="font-medium">
-                              <div
-                                className="h-10 w-10 rounded-full flex items-center justify-center text-primary-foreground text-sm font-medium"
-                                style={{ backgroundColor: member.color }}
-                              >
-                                {member?.firstName?.charAt(0)}
-                                {member?.lastName?.charAt(0)}
-                              </div>
-                            </TableCell>
-                            <TableCell>
-                              {member.firstName} {member.lastName}
-                            </TableCell>
-                            <TableCell>{member.role}</TableCell>
-                            <TableCell>{member.email}</TableCell>
-                            <TableCell className="text-right">
-                              {member.id !== user?.id && (
-                                <button
-                                  onClick={() =>
-                                    handleRemoveMember(member?.email)
-                                  }
-                                  className="text-muted-foreground hover:text-destructive"
-                                >
-                                  <X className="h-5 w-5" />
-                                </button>
-                              )}
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </div>
-                </div>
-              </div>
+                )}
+              </>
             )}
           </div>
         </div>

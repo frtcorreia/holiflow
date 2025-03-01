@@ -5,9 +5,10 @@ import { Users } from "lucide-react";
 import { useVacationStore } from "../store/vacationStore";
 import VacationCalendar from "../components/VacationCalendar";
 import { VacationPeriod } from "../types";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 function Dashboard() {
-  const { vacations, fetchVacations } = useVacationStore();
+  const { loading, vacations, fetchVacations } = useVacationStore();
   const [currentVacations, setCurrentVacations] = useState<VacationPeriod[]>(
     []
   );
@@ -42,7 +43,7 @@ function Dashboard() {
                     Total de Membros
                   </dt>
                   <dd className="text-3xl font-semibold text-foreground">
-                    {new Set(vacations.map((v) => v.userId)).size}
+                    {new Set(vacations?.map((v) => v.userId)).size}
                   </dd>
                 </dl>
               </div>
@@ -62,7 +63,7 @@ function Dashboard() {
                     Atualmente de Férias
                   </dt>
                   <dd className="text-3xl font-semibold text-foreground">
-                    {currentVacations.length}
+                    {currentVacations?.length}
                   </dd>
                 </dl>
               </div>
@@ -72,11 +73,15 @@ function Dashboard() {
       </div>
 
       <div className="mt-8">
-        <VacationCalendar
-          vacations={vacations}
-          currentMonth={currentMonth}
-          onMonthChange={setCurrentMonth}
-        />
+        {loading && <LoadingSpinner />}
+
+        {!loading && (
+          <VacationCalendar
+            vacations={vacations}
+            currentMonth={currentMonth}
+            onMonthChange={setCurrentMonth}
+          />
+        )}
       </div>
 
       <div className="mt-8">
@@ -87,30 +92,35 @@ function Dashboard() {
             </h3>
           </div>
           <ul className="divide-y divide">
-            {currentVacations.map((vacation) => (
-              <li key={vacation.id} className="px-4 py-4 sm:px-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-foreground">
-                      {vacation.userName}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {format(new Date(vacation.startDate || ""), "PP", {
-                        locale: pt,
-                      })}
-                      -
-                      {format(new Date(vacation.endDate || ""), "PP", {
-                        locale: pt,
-                      })}
-                    </p>
-                  </div>
-                </div>
-              </li>
-            ))}
-            {currentVacations.length === 0 && (
-              <li className="px-4 py-4 sm:px-6 text-muted-foreground text-center">
-                Ninguém está ausente atualmente
-              </li>
+            {loading && <LoadingSpinner />}
+            {!loading && (
+              <>
+                {currentVacations.map((vacation) => (
+                  <li key={vacation.id} className="px-4 py-4 sm:px-6">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-foreground">
+                          {vacation.userName}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {format(new Date(vacation.startDate || ""), "PP", {
+                            locale: pt,
+                          })}
+                          -
+                          {format(new Date(vacation.endDate || ""), "PP", {
+                            locale: pt,
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+                {currentVacations.length === 0 && (
+                  <li className="px-4 py-4 sm:px-6 text-muted-foreground text-center">
+                    Ninguém está ausente atualmente
+                  </li>
+                )}
+              </>
             )}
           </ul>
         </div>

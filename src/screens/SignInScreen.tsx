@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Calendar } from "lucide-react";
-import { useAuthStore } from "../store/authStore";
-import { useNavigate, Link, useSearchParams } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/PasswordInput";
+import { useAccessLogs } from "@/hooks/useAccessLogs";
+import { useAuthStore } from "@/store/authStore";
 
 const SignInScreen = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signIn, loading, error, user } = useAuthStore();
-
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get("id") || "";
 
   useEffect(() => {
     if (user) {
@@ -25,6 +23,7 @@ const SignInScreen = () => {
     e.preventDefault();
     try {
       await signIn(email, password);
+      useAccessLogs(user);
     } catch (err) {
       toast.error("Falha na autenticação");
     }

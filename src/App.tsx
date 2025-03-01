@@ -16,14 +16,17 @@ import TeamManagement from "./screens/TeamManagement";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./helpers/firebase";
 import TeamVacations from "./screens/TeamVacations";
+import Privacy from "./screens/Privacy";
+import AccessLogs from "./screens/AccessLogs";
+import { LoadingSpinner } from "./components/LoadingSpinner";
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, loading } = useAuthStore();
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-slate-950 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500" />
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <LoadingSpinner />
       </div>
     );
   }
@@ -45,6 +48,7 @@ function App() {
 
     return () => unsubscribe();
   }, [setUser]);
+
   return (
     <BrowserRouter>
       <Toaster position="top-right" />
@@ -53,6 +57,17 @@ function App() {
         <Route path="/auth/signin" element={<SignInScreen />} />
         <Route path="/auth/signup" element={<SignUpScreen />} />
         <Route path="/auth/recover" element={<PasswordRecoveryScreen />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route
+          path="/admin/logs"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <AccessLogs />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/dashboard"
           element={

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "../store/authStore";
-import { useVacationStore } from "../store/vacationStore";
 import { eachDayOfInterval, isWeekend } from "date-fns";
-import { AbsenceType } from "../types";
-import AbsenceCalendar from "../components/AbsenceCalendar";
 import toast from "react-hot-toast";
+import { useAuthStore } from "@/store/authStore";
+import { useVacationStore } from "@/store/vacationStore";
+import { AbsenceType } from "@/types";
+import AbsenceCalendar from "@/components/AbsenceCalendar";
 
 const NewAbsence = () => {
   const navigate = useNavigate();

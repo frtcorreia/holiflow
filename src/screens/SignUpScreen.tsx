@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Calendar, EyeIcon, EyeOffIcon } from "lucide-react";
-import { useAuthStore } from "../store/authStore";
+import { Calendar } from "lucide-react";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
-import { Role } from "../types";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { PasswordInput } from "@/components/PasswordInput";
+import { Role } from "@/types";
+import { useAuthStore } from "@/store/authStore";
 
 const AVAILABLE_COLORS = [
   "#3B82F6", // blue
@@ -26,7 +25,6 @@ const SignUpScreen = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [role, setRole] = useState<Role | undefined>(Role?.collaborator);
-  const [showPassword, setShowPassword] = useState(false);
   const { signUp, loading, error, user } = useAuthStore();
 
   const [searchParams] = useSearchParams();

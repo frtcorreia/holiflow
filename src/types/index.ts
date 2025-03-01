@@ -3,6 +3,7 @@ import { Timestamp } from "firebase/firestore";
 export enum Role {
   teamLeader = "team_leader",
   collaborator = "collaborator",
+  admin = "admin",
 }
 
 export interface Invitation {

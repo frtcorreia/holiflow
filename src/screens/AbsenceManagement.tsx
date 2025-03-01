@@ -8,11 +8,11 @@ import {
 } from "date-fns";
 import { pt } from "date-fns/locale/pt";
 import { Calendar, Trash2, Edit, ArrowLeft } from "lucide-react";
-import { useAuthStore } from "../store/authStore";
-import { useVacationStore } from "../store/vacationStore";
-import { VacationPeriod, AbsenceType } from "../types";
-import AbsenceCalendar from "../components/AbsenceCalendar";
 import toast from "react-hot-toast";
+import { useAuthStore } from "@/store/authStore";
+import { useVacationStore } from "@/store/vacationStore";
+import { AbsenceType, VacationPeriod } from "@/types";
+import AbsenceCalendar from "@/components/AbsenceCalendar";
 
 const AbsenceManagement = () => {
   const { user } = useAuthStore();
