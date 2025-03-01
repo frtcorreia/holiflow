@@ -335,6 +335,15 @@ export const useTeamStore = create<TeamState>((set, get) => ({
       );
       const membersSnapshot = await getDocs(membersQuery);
 
+      const teamQuery = query(
+        collection(db, "teams"),
+        where("id", "==", teamId)
+      );
+      const teamSnapshot = await getDocs(teamQuery);
+
+      const teamDoc = teamSnapshot?.docs[0];
+      const teamName = teamDoc?.data().name;
+      debugger;
       const invitations: Invitation[] = membersSnapshot.docs.map(
         (memberDoc) => {
           const data = memberDoc.data();
@@ -343,7 +352,7 @@ export const useTeamStore = create<TeamState>((set, get) => ({
             joinedAt: data.joinedAt || "",
             role: data.role || "",
             teamId: data.teamId || "",
-            teamName: data.teamName || "",
+            teamName: teamName || "",
           } as Invitation;
         }
       );
@@ -462,6 +471,12 @@ export const useTeamStore = create<TeamState>((set, get) => ({
         where("email", "==", user?.email)
       );
       const iSnapshot = await getDocs(iQuery);
+      const iDoc = iSnapshot?.docs[0];
+      const teamId = iDoc?.data().teamId;
+
+      const teamRef = doc(db, "teams", teamId);
+      const teamSnap = await getDoc(teamRef);
+      const teamName = teamSnap?.data()?.name;
 
       const invitations: Invitation[] = iSnapshot.docs.map((iDoc) => {
         const data = iDoc.data();
@@ -471,7 +486,7 @@ export const useTeamStore = create<TeamState>((set, get) => ({
           joinedAt: data.joinedAt || "",
           role: data.role || "",
           teamId: data.teamId || "",
-          teamName: data.teamName || "",
+          teamName: teamName || "",
         } as Invitation;
       });
 

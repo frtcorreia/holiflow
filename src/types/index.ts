@@ -11,7 +11,7 @@ export interface Invitation {
   joinedAt?: string;
   role?: string;
   teamId?: string;
-  teamName?: Role;
+  teamName?: string;
 }
 export interface User {
   id?: string;

@@ -31,7 +31,11 @@ const Sidebar = ({ isCollapsed }: Props) => {
         isCollapsed ? "w-16" : "w-64"
       }`}
     >
-      <div className="p-4 flex items-center gap-2">
+      <div
+        className={`p-4 flex items-center gap-2 transition-all duration-300  ${
+          isCollapsed ? "justify-center" : "gap-1"
+        }`}
+      >
         <Calendar className="h-5 w-5 flex-shrink-0" />
         <h1
           className={`text-xl font-semibold truncate text-foreground ${

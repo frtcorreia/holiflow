@@ -14,6 +14,7 @@ const SignInScreen = () => {
   const { signIn, loading, error, user } = useAuthStore();
 
   useEffect(() => {
+    console.log(user);
     if (user) {
       navigate("/dashboard");
     }

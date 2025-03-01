@@ -69,7 +69,6 @@ const MyTeam = () => {
   };
 
   const handleAcceptInvite = async (email?: string | null, teamId?: string) => {
-    console.log("accept");
     await acceptTeamInvitation(email, teamId);
     toast.success("Convite aceite com sucesso");
   };
@@ -161,7 +160,7 @@ const MyTeam = () => {
                             invitation?.teamId
                           )
                         }
-                        className="flex items-center gap-2 px-4 py-2 text-destructive-foreground bg-destructive hover:bg-destructive/90 rounded-lg transition"
+                        className="flex items-center gap-2 px-4 py-2 text-destructive-foreground outline outline-1 outline-destructive hover:bg-destructive/70 rounded-lg transition"
                       >
                         <X size={18} /> Recusar
                       </button>

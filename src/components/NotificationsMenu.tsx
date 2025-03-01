@@ -28,11 +28,20 @@ export const NotificationMenu = () => {
     subscribeToNotifications,
     deleteNotification,
   } = useNotificationStore();
-  const [isOpen, setIsOpen] = useState(false);
 
   const totalNotifications =
     notificationsByEmail?.length + notificationsById?.length;
   const totalUnreadNotifications = unreadCountByEmail + unreadCountById;
+
+  useEffect(() => {
+    console.log(user);
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      subscribeToNotifications(user);
+    }
+  }, [user, subscribeToNotifications]);
 
   const handleNotificationClickMarkAsRead = async (notificationId: string) => {
     try {
@@ -40,12 +49,6 @@ export const NotificationMenu = () => {
       console.log("Notificação marcada como lida:", notificationId);
     } catch (error) {
       console.error("Erro ao marcar como lida:", error);
-    }
-  };
-
-  const handleMarkAllAsRead = async () => {
-    if (user?.id) {
-      await markAllAsRead(user.id);
     }
   };
 
