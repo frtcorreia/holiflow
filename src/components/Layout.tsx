@@ -5,7 +5,6 @@ import { useAuthStore } from "../store/authStore";
 import Sidebar from "./Sidebar";
 import ThemeToggle from "./ThemeToggle";
 import { NotificationMenu } from "./NotificationsMenu";
-import { useAccessLogs } from "../hooks/useAccessLogs";
 
 interface Props {
   children: React.ReactNode;
@@ -15,7 +14,6 @@ const Layout = ({ children }: Props) => {
   const navigate = useNavigate();
   const { user, signOut } = useAuthStore();
   const [isCollapsed, setIsCollapsed] = useState(false);
-  useAccessLogs();
 
   const getInitials = () => {
     if (user?.firstName && user?.lastName) {

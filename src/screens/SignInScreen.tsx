@@ -4,7 +4,6 @@ import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/PasswordInput";
-import { useAccessLogs } from "@/hooks/useAccessLogs";
 import { useAuthStore } from "@/store/authStore";
 
 const SignInScreen = () => {
@@ -14,7 +13,6 @@ const SignInScreen = () => {
   const { signIn, loading, error, user } = useAuthStore();
 
   useEffect(() => {
-    console.log(user);
     if (user) {
       navigate("/dashboard");
     }
@@ -24,8 +22,8 @@ const SignInScreen = () => {
     e.preventDefault();
     try {
       await signIn(email, password);
-      useAccessLogs(user);
-    } catch (err) {
+      navigate("/dashboard");
+    } catch (error) {
       toast.error("Falha na autenticação");
     }
   };

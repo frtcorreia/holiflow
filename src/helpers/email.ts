@@ -1,17 +1,6 @@
 import emailjs from "@emailjs/browser";
-import { Role, Team } from "../types";
-
-const roleTranslation = (role?: Role) => {
-  switch (role) {
-    case Role.collaborator:
-      return "colaborador";
-    case Role.teamLeader:
-      return "Team Leader";
-
-    default:
-      return "colaborador";
-  }
-};
+import { Role, RoleTranslation, Team } from "../types";
+import { roleTranslation } from "./global";
 
 export const sendEmailInvitation = async (
   team: Team | null,

@@ -287,6 +287,9 @@ export const useTeamStore = create<TeamState>((set, get) => ({
     if (!teamId) {
       throw new TeamError("ID da equipe não fornecido");
     }
+    if (!teamId) {
+      throw new Error("ID da equipa não fornecido ou inválido");
+    }
 
     try {
       set({ loading: true, error: null });
@@ -329,6 +332,7 @@ export const useTeamStore = create<TeamState>((set, get) => ({
   fetchTeamInvitations: async (teamId) => {
     try {
       set({ loading: true, error: null });
+
       const membersQuery = query(
         collection(db, "invitation_list"),
         where("teamId", "==", teamId)
@@ -343,7 +347,7 @@ export const useTeamStore = create<TeamState>((set, get) => ({
 
       const teamDoc = teamSnapshot?.docs[0];
       const teamName = teamDoc?.data().name;
-      debugger;
+
       const invitations: Invitation[] = membersSnapshot.docs.map(
         (memberDoc) => {
           const data = memberDoc.data();

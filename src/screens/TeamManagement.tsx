@@ -17,6 +17,7 @@ import { useAuthStore } from "@/store/authStore";
 import { Invitation, NotificationType, Role } from "@/types";
 import { useTeamStore } from "@/store/teamStore";
 import { useNotificationStore } from "@/store/notificationStore";
+import { roleTranslation } from "@/helpers/global";
 
 const TeamManagement = () => {
   const navigate = useNavigate();
@@ -344,7 +345,9 @@ const TeamManagement = () => {
                                 <TableCell className="font-medium">
                                   {member.email}
                                 </TableCell>
-                                <TableCell>{member.role}</TableCell>
+                                <TableCell>
+                                  {roleTranslation(member.role as Role)}
+                                </TableCell>
                                 <TableCell>{member.joinedAt}</TableCell>
                                 <TableCell className="text-right">
                                   Pendente
@@ -397,7 +400,9 @@ const TeamManagement = () => {
                                 <TableCell>
                                   {member.firstName} {member.lastName}
                                 </TableCell>
-                                <TableCell>{member.role}</TableCell>
+                                <TableCell>
+                                  {roleTranslation(member.role as Role)}
+                                </TableCell>
                                 <TableCell>{member.email}</TableCell>
                                 <TableCell className="text-right">
                                   {member.id !== user?.id && (

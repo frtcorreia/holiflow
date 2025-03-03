@@ -5,14 +5,14 @@ import { useVacationStore } from "../store/vacationStore";
 import { format, eachDayOfInterval, isWeekend } from "date-fns";
 import { pt } from "date-fns/locale/pt";
 import { AbsenceType, VacationsStatus } from "../types";
-
-import { getStatusColor, getStatusText } from "../helpers/vacations";
+import { useTagSpecs } from "@/hooks/useTagSpecs";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 const MyAbsences = () => {
   const navigate = useNavigate();
   const { loading, vacations, deleteVacation, fetchVacations } =
     useVacationStore();
+  const { getStatusColor, getStatusText } = useTagSpecs();
 
   useEffect(() => {
     fetchVacations();

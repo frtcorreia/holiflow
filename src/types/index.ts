@@ -6,6 +6,12 @@ export enum Role {
   admin = "admin",
 }
 
+export enum RoleTranslation {
+  teamLeader = "Team Leader",
+  collaborator = "Colaborador",
+  admin = "Admin",
+}
+
 export interface Invitation {
   email?: string | null;
   joinedAt?: string;
@@ -112,4 +118,16 @@ export interface Notification {
     teamId?: string;
     invitationId?: string;
   };
+}
+
+export enum VacationsTagColor {
+  pending = "bg-yellow-100 text-yellow-800",
+  approved = "bg-green-100 text-green-800",
+  rejected = "bg-red-100 text-red-800",
+}
+
+export enum VacationsTagText {
+  pending = "Pendente",
+  approved = "Aprovado",
+  rejected = "Rejeitado",
 }
