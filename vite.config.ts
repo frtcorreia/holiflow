@@ -14,7 +14,7 @@ export default defineConfig({
     },
   },
   server: {
-    middlewareMode: true,
+    //middlewareMode: true,
   },
   build: {
     outDir: "dist",

@@ -34,10 +34,6 @@ export const NotificationMenu = () => {
   const totalUnreadNotifications = unreadCountByEmail + unreadCountById;
 
   useEffect(() => {
-    console.log(user);
-  }, []);
-
-  useEffect(() => {
     if (user) {
       subscribeToNotifications(user);
     }

@@ -468,37 +468,50 @@ export const useTeamStore = create<TeamState>((set, get) => ({
   },
 
   getMyInvitation: async (user) => {
+    if (!user) {
+      throw new Error("User is not defined");
+    }
+
     try {
       set({ loading: true, error: null });
+
       const iQuery = query(
         collection(db, "invitation_list"),
-        where("email", "==", user?.email)
+        where("email", "==", user.email)
       );
       const iSnapshot = await getDocs(iQuery);
-      const iDoc = iSnapshot?.docs[0];
-      const teamId = iDoc?.data().teamId;
 
-      const teamRef = doc(db, "teams", teamId);
-      const teamSnap = await getDoc(teamRef);
-      const teamName = teamSnap?.data()?.name;
+      if (iSnapshot.empty) {
+        set({ myInvitations: [] });
+        return [];
+      }
+
+      const teamIds = iSnapshot.docs.map((doc) => doc.data().teamId);
+
+      const teamRefs = teamIds.map((teamId) => doc(db, "teams", teamId));
+      const teamSnaps = await Promise.all(teamRefs.map(getDoc));
+
+      const teamNamesMap = new Map(
+        teamSnaps.map((snap) => [snap.id, snap.data()?.name || ""])
+      );
 
       const invitations: Invitation[] = iSnapshot.docs.map((iDoc) => {
         const data = iDoc.data();
-
         return {
           email: data.email || "",
           joinedAt: data.joinedAt || "",
           role: data.role || "",
           teamId: data.teamId || "",
-          teamName: teamName || "",
+          teamName: teamNamesMap.get(data.teamId) || "",
         } as Invitation;
       });
 
       set({ myInvitations: invitations });
       return invitations;
     } catch (error: any) {
+      console.error("Error fetching invitations:", error);
       set({ error: error.message });
-      throw error;
+      throw new Error(`Failed to fetch invitations: ${error.message}`);
     } finally {
       set({ loading: false });
     }
