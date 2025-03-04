@@ -119,10 +119,6 @@ O projeto está configurado para deploy na Vercel. Para fazer o deploy:
 2. Configure as variáveis de ambiente
 3. Deploy automático a cada push
 
-## 📝 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
 ## 👥 Contribuição
 
 1. Faça um Fork do projeto
