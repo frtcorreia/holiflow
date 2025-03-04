@@ -6,7 +6,7 @@ import path from "path";
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    exclude: ["lucide-react"],
+    exclude: ["lucide-react", "tailwindcss-animate"],
   },
   resolve: {
     alias: {
@@ -14,7 +14,7 @@ export default defineConfig({
     },
   },
   server: {
-    middlewareMode: true,
+    //middlewareMode: true,
   },
   build: {
     outDir: "dist",

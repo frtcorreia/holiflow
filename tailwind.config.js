@@ -1,5 +1,4 @@
-import animate from "tailwindcss-animate"
-import { colors } from "tailwindcss"
+import animate from "tailwindcss-animate" 
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -94,5 +93,5 @@ export default {
   		}
   	}
   },
-  plugins: [animate, require("tailwindcss-animate")],
+  plugins: [animate],
 }

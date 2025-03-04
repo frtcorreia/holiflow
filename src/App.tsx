@@ -53,7 +53,7 @@ function App() {
     <BrowserRouter>
       <Toaster position="top-right" />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<SignInScreen />} />
         <Route path="/auth/signin" element={<SignInScreen />} />
         <Route path="/auth/signup" element={<SignUpScreen />} />
         <Route path="/auth/recover" element={<PasswordRecoveryScreen />} />
